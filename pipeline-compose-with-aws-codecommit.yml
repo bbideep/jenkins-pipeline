@@ -5,8 +5,8 @@ services:
     image: jenkins-pipeline:latest
     environment:
       - JENKINS_UI_URL=${JENKINS_URL}
-      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL}
-      - GIT_BRANCH=${GIT_BRANCH}
+      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL:-https://git-codecommit.us-east-1.amazonaws.com/v1/repos/jenkins-pipeline}
+      - GIT_BRANCH=${GIT_BRANCH:-master}
     ports:
       - 8081:8080
       - 50000:50000
