@@ -5,21 +5,23 @@ services:
     image: jenkins-pipeline:latest
     environment:
       - JENKINS_UI_URL=${JENKINS_URL}
+      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL}
+      - GIT_BRANCH=${GIT_BRANCH}
     ports:
       - 8081:8080
       - 50000:50000
     secrets:
       - admin-username
       - admin-password
-      - aws-codecommit-master-user
-      - aws-codecommit-master-pwd
+      - scm-repo-user
+      - scm-repo-pwd
 
 secrets:
   admin-username:
     external: true
   admin-password:
     external: true
-  aws-codecommit-master-user:
+  scm-repo-user:
     external: true
-  aws-codecommit-master-pwd:
+  scm-repo-pwd:
     external: true
