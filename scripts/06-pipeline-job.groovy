@@ -26,7 +26,6 @@ def getCredentialsId = { username ->
 
 def GIT_REPO_HTTPS_URL = System.env.GIT_REPO_HTTPS_URL
 def GIT_BRANCH = System.env.GIT_BRANCH
-//def scm = new GitSCM("https://git-codecommit.us-east-1.amazonaws.com/v1/repos/jenkins-pipeline")
 def scm = new GitSCM(GIT_REPO_HTTPS_URL)
 scm.branches = [new BranchSpec("*/"+GIT_BRANCH)];
 scm.userRemoteConfigs = [new UserRemoteConfig(GIT_REPO_HTTPS_URL, null, null, getCredentialsId(user))]
@@ -34,7 +33,7 @@ scm.userRemoteConfigs = [new UserRemoteConfig(GIT_REPO_HTTPS_URL, null, null, ge
 def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, "Jenkinsfile")
 
 def parent = Jenkins.instance
-def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "Pipeline_Demo")
+def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "Container_Deployment_Demo")
 job.definition = flowDefinition
 
 parent.reload()
