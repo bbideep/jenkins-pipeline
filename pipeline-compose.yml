@@ -1,21 +1,58 @@
 version: '3.1'
 
 services:
-  main:
+  jenkins:
     image: jenkins-pipeline:latest
+    volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JENKINS_UI_URL=${JENKINS_URL}
-      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL}
-      - GIT_BRANCH=${GIT_BRANCH}
+#      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL:-https://git-codecommit.us-east-1.amazonaws.com/v1/repos/jenkins-pipeline}
+      - GIT_REPO_HTTPS_URL=${GIT_REPO_HTTPS_URL:-https://github.com/bbideep/springboot-microservices}
+      - GIT_BRANCH=${GIT_BRANCH:-master}
+      - SONAR_ENABLED=true
+      - SONAR_SERVER_URL=http://127.0.0.1:9000
+      - DOCKER_HOST_PORT=${DOCKER_HOST_PORT}
     ports:
       - 8081:8080
       - 50000:50000
     secrets:
       - admin-username
       - admin-password
-
+      - scm-repo-user
+      - scm-repo-pwd
+      - aws-access-key
+      - aws-secret-key
+      - docker-reg-user
+      - docker-reg-pwd
+      - k8s-user
+      - k8s-pwd
+#  sonarqube:
+#    image: sonarqube:7.5-community
+#    environment:
+#      - SONAR_ENABLED=true
+#    ports:
+#      - 9000:9000
+#  inspec:
+#    image: chef/inspec:3.2.7
 secrets:
   admin-username:
     external: true
   admin-password:
+    external: true
+  scm-repo-user:
+    external: true
+  scm-repo-pwd:
+    external: true
+  aws-access-key:
+    external: true
+  aws-secret-key:
+    external: true
+  docker-reg-user:
+    external: true
+  docker-reg-pwd:
+    external: true
+  k8s-user:
+    external: true
+  k8s-pwd:
     external: true
