@@ -18,7 +18,7 @@ def k8s_pwd = new File("/run/secrets/k8s-pwd").text.trim()
 //Credentials scm_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL,java.util.UUID.randomUUID().toString(), "scm-credentials", username, password)
 Credentials scm_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, "scm-credentials", "scm-credentials", username, password)
 Credentials aws_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, "aws-credentials", "", aws_access_key, aws_secret_key)
-Credentials ecr_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, "ecr-credentials", "docker-reg-creds", docker_reg_user, docker_reg_pwd)
+Credentials docker_reg_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, "ecr-credentials", "docker-reg-creds", docker_reg_user, docker_reg_pwd)
 Credentials k8s_creds = (Credentials) new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL, "k8s-credentials", "k8s-credentials", k8s_user, k8s_pwd)
 
 SystemCredentialsProvider.getInstance().getStore().addCredentials(Domain.global(), scm_creds)
